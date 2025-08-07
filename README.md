@@ -2,12 +2,6 @@
 
 Extract Spotify content (images, videos, canvas animations) from HAR (HTTP Archive) files captured from your browser.
 
-## 🎬 Demo
-
-[📹 Watch Demo Video](video/video.mp4)
-
-*Example of extracted Spotify Canvas animation*
-
 ## 🚀 Features
 
 - **Image Extraction**: Download album covers, artist photos, playlist images from Spotify CDNs
@@ -130,4 +124,5 @@ Each extraction generates a detailed JSON report containing:
 
 
 This project is provided as-is for educational purposes.
+
 
