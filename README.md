@@ -4,7 +4,7 @@ Extract Spotify content (images, videos, canvas animations) from HAR (HTTP Archi
 
 ## 🎬 Demo
 
-[📹 Watch Demo Video](video.mp4)
+[📹 Watch Demo Video](video/video.mp4)
 
 *Example of extracted Spotify Canvas animation*
 
@@ -130,3 +130,4 @@ Each extraction generates a detailed JSON report containing:
 
 
 This project is provided as-is for educational purposes.
+
