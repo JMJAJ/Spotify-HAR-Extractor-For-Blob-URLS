@@ -37,7 +37,7 @@ pip install requests
 
 ### Method 1: Command Line with HAR File
 ```bash
-python spotify_har.py path/to/your/file.har
+python spotify_har.py path/to/your/file.(har/json)
 ```
 
 ### Method 2: Interactive Mode
@@ -186,5 +186,6 @@ Feel free to submit issues, feature requests, or pull requests to improve the to
 This tool is for educational and personal use only. Respect Spotify's Terms of Service and copyright laws. Only extract content you have legitimate access to.
 
 ## 📄 License
+
 
 This project is provided as-is for educational purposes.
