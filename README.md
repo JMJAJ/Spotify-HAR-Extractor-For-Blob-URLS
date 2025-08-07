@@ -35,7 +35,10 @@ pip install requests
 
 ## 📖 Usage
 
-https://github.com/JMJAJ/SpotifyMediaExtractor/blob/main/video/video.mp4
+<video width="800" controls>
+  <source src="https://github.com/JMJAJ/SpotifyMediaExtractor/blob/main/video/video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ### Method 1: Command Line with HAR File
 ```bash
@@ -126,5 +129,6 @@ Each extraction generates a detailed JSON report containing:
 
 
 This project is provided as-is for educational purposes.
+
 
 
