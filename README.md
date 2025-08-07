@@ -4,11 +4,9 @@ Extract Spotify content (images, videos, canvas animations) from HAR (HTTP Archi
 
 ## 🎬 Demo
 
-https://github.com/user/repo/assets/video.mp4
+[📹 Watch Demo Video](video.mp4)
 
 *Example of extracted Spotify Canvas animation*
-
-> **Note:** Click the video link above to see the demo of extracted Spotify Canvas animation
 
 ## 🚀 Features
 
