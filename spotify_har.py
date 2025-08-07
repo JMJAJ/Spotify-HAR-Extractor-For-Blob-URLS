@@ -459,6 +459,11 @@ class SpotifyHARExtractor:
                     mp4_path = self.convert_to_mp4(output_path)
                     if mp4_path:
                         combined_videos.append(mp4_path)
+                        
+                        # Also create GIF version
+                        gif_path = self.convert_to_gif(mp4_path)
+                        if gif_path:
+                            combined_videos.append(gif_path)
 
             except Exception as e:
                 print(f"❌ Error combining segments for {group_key}: {e}")
@@ -496,6 +501,49 @@ class SpotifyHARExtractor:
 
         return None
 
+    def convert_to_gif(self, video_path: str) -> Optional[str]:
+        """Convert video to GIF using ffmpeg if available"""
+        try:
+            import subprocess
+
+            gif_path = video_path.rsplit('.', 1)[0] + '.gif'
+
+            # Create GIF with optimized settings for better quality and smaller size
+            result = subprocess.run([
+                'ffmpeg', '-i', video_path, 
+                '-vf', 'fps=15,scale=320:-1:flags=lanczos,palettegen=reserve_transparent=0', 
+                '-y', gif_path + '_palette.png'
+            ], capture_output=True, text=True, timeout=30)
+
+            if result.returncode == 0:
+                # Use the generated palette for better quality
+                result = subprocess.run([
+                    'ffmpeg', '-i', video_path, '-i', gif_path + '_palette.png',
+                    '-lavfi', 'fps=15,scale=320:-1:flags=lanczos[x];[x][1:v]paletteuse',
+                    '-y', gif_path
+                ], capture_output=True, text=True, timeout=60)
+
+                # Clean up palette file
+                try:
+                    os.remove(gif_path + '_palette.png')
+                except:
+                    pass
+
+                if result.returncode == 0 and os.path.exists(gif_path):
+                    print(f"✅ Converted to GIF: {gif_path}")
+                    return gif_path
+                else:
+                    print(f"⚠️  GIF conversion failed: {result.stderr}")
+            else:
+                print(f"⚠️  Palette generation failed: {result.stderr}")
+
+        except FileNotFoundError:
+            print("⚠️  FFmpeg not found - install it to convert videos to GIF")
+        except Exception as e:
+            print(f"⚠️  GIF conversion error: {e}")
+
+        return None
+
     def process_har_data(self, har_data: Dict) -> Dict:
         """Process HAR data and extract all Spotify content"""
         print("🔍 Analyzing HAR data for Spotify content...")
@@ -523,11 +571,16 @@ class SpotifyHARExtractor:
 
         report_file = self.save_analysis_report(har_data, extracted_media)
 
+        # Count different file types
+        mp4_files = [f for f in downloaded_files if f.endswith('.mp4')]
+        gif_files = [f for f in downloaded_files if f.endswith('.gif')]
+        
         results = {
             'success': True,
             'total_media_found': len(extracted_media),
             'downloaded_files': downloaded_files,
-            'combined_videos': len(combined_videos),
+            'combined_videos': len([f for f in downloaded_files if f.endswith(('.webm', '.mp4'))]),
+            'gif_files': len(gif_files),
             'report_file': report_file,
             'output_folder': self.output_folder
         }
@@ -580,15 +633,19 @@ def main():
         print("=" * 60)
         print(f"📊 Total media found: {results['total_media_found']}")
         print(f"📥 Files downloaded: {len(results['downloaded_files'])}")
+        print(f"🎬 Videos created: {results['combined_videos']}")
+        print(f"🎞️ GIFs created: {results['gif_files']}")
         print(f"📁 Output folder: {results['output_folder']}")
         print(f"📊 Analysis report: {results['report_file']}")
 
         if results['downloaded_files']:
             print(f"\n📋 Downloaded files:")
             for filepath in results['downloaded_files']:
-                print(f"  ✅ {filepath}")
+                file_type = "🎞️" if filepath.endswith('.gif') else "🎬" if filepath.endswith(('.mp4', '.webm')) else "🖼️"
+                print(f"  {file_type} {filepath}")
 
         print(f"\n💡 Check the '{results['output_folder']}' folder for all extracted content!")
+        print("🎞️ GIF files are optimized for web sharing and smaller file sizes")
     else:
         print(f"❌ Extraction failed: {results.get('error', 'Unknown error')}")
 
