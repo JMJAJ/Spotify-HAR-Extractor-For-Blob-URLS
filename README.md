@@ -35,6 +35,8 @@ pip install requests
 
 ## 📖 Usage
 
+[![Demo](https://help.autodesk.com/sfdcarticles/img/0EMKf000006KjgU)](https://github.com/JMJAJ/SpotifyMediaExtractor/blob/main/video/video.mp4)
+
 ### Method 1: Command Line with HAR File
 ```bash
 python spotify_har.py path/to/your/file.(har/json)
@@ -124,5 +126,6 @@ Each extraction generates a detailed JSON report containing:
 
 
 This project is provided as-is for educational purposes.
+
 
 
