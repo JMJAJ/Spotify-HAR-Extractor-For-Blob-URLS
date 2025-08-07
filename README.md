@@ -2,6 +2,15 @@
 
 Extract Spotify content (images, videos, canvas animations) from HAR (HTTP Archive) files captured from your browser.
 
+## 🎬 Demo
+
+<video width="800" controls>
+  <source src="video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+*Example of extracted Spotify Canvas animation*
+
 ## 🚀 Features
 
 - **Image Extraction**: Download album covers, artist photos, playlist images from Spotify CDNs
@@ -34,13 +43,6 @@ pip install requests
    - Linux: `sudo apt install ffmpeg`
 
 ## 📖 Usage
-
-<video width="800" controls>
-  <source src="video/demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-*Example of extracted Spotify Canvas animation*
 
 ### Method 1: Command Line with HAR File
 ```bash
@@ -131,8 +133,3 @@ Each extraction generates a detailed JSON report containing:
 
 
 This project is provided as-is for educational purposes.
-
-
-
-
-
